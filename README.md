@@ -4,6 +4,12 @@
 
 - 푸쉬알림의 경우 Firebase Messaging api 를 이용하였습니다.
 
+# 어플 구조
+<div align="center">
+    <img src=".readme_img/flow1.png" alt=""/>
+</div>
+
+# 실행 화면
 |어플 실행시 로고 표시(스플래쉬 화면)|로그인 화면|
 :-------------------------:|:-------------------------:
 |![preview1](/.readme_img/preview1.png)|![preview2](/.readme_img/preview2.png)|
