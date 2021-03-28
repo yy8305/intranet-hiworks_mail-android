@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=yes" />
+    <title>인트라넷</title>
+    <link href="./css/jquery.btnswitch.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+              integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+              crossorigin="anonymous"></script>
+    <script type="text/javascript" src="./js/jquery.btnswitch.js"></script>
+    <script type="text/javascript">
+    function setPushYn(ynStr)
+    {
+        var frm = document.forms["frm"];
+        frm.push_yn.value = ynStr; // Y/N 처리
+        frm.submit();
+    }
+
+    function callApp()
+    {
+        window.neodroid.justDoIt('token');
+    }
+
+    function setToken(token)
+    {
+        var frm = document.forms["frm"];
+        frm.token.value = token;
+        getPushYn();
+    }
+
+	function getPushYn()
+	{
+        var frm = document.forms["frm"];
+        var token = frm.token.value;
+		$.ajax({
+		    type: 'GET'
+			, url : "http://localhost/fcm/getPushYn.do"
+			, dataType : "text"
+			, data : "token="+token
+			, error : function(request, status, error) {
+			}
+			, success : function(response, status, request) {
+                frm.push_yn.value = response;
+                if (frm.push_yn.value == 'Y')
+                {
+                    $('#demo3').btnSwitch({
+                        ToggleState: true
+                    });
+                }
+                else
+                {
+                    $('#demo3').btnSwitch({
+                        ToggleState: false
+                    });
+                }
+			}
+		});
+	}
+    </script>
+</head>
+<body onload="callApp()">
+<form name="frm" method="post" target="ifrm" action="http://localhost/fcm/regist.do">
+<input type="text" id="token" name="token"  size="60" value="" />
+<input type="text" name="push_yn" value="Y" />
+<div style="text-align:center;padding:50px 30px 30px 80px;">
+    <div style="float:left;">알림허용</div>
+    <div style="float:right; padding-right:30px;" id="demo3"></div>
+</div>
+</form>
+<iframe name="ifrm" src="" width="0" height="0" frameborder="0"></iframe>
+<script>
+$('#demo3').btnSwitch({
+    Theme: 'Light',
+    ToggleState: true,
+    OnCallback: function() {
+        setPushYn('Y');
+    },
+    OffCallback: function (val) {
+        setPushYn('N');
+    }
+});
+</script>
+</body>
+</html>

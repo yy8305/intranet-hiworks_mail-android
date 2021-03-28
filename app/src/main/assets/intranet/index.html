@@ -1,0 +1,46 @@
+<doctype html />
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=yes" />
+    <title>인트라넷</title>
+    <style>
+    body
+    {
+        text-align:center;
+        font-size:24px;
+        color:#FFFFFF;
+        text-shadow: 0.1em 0.1em 0.15em #000000;
+        font-weight:bold;
+        vertical-align:middle;
+    }
+    </style>
+    <script type="text/javascript">
+    function requestToken()
+    {
+        setTimeout("callApp()", 1000);
+    }
+
+    function callApp()
+    {
+        window.neodroid.justDoIt('token');
+    }
+
+    function setToken(token)
+    {
+        var frm = document.forms["frm"];
+        frm.token.value = token;
+        frm.submit();
+    }
+    </script>
+</head>
+<body>
+<div style="padding:49% 0 0 0">
+    <p><img  src="./images/loading.gif" /></p>
+    <form name="frm" method="post" action="http://localhost/fcm/regist.do">
+        <input type="hidden" name="token" value="" />
+        <input type="hidden" name="push_yn" value="Y" />
+    </form>
+</div>
+</body>
+</html>
